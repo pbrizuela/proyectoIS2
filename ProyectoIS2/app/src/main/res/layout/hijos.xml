@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <Button
+        android:text="Atrás"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="atras" />
+
     <TextView
         android:text="Hijos Registrados"
         android:layout_width="match_parent"
@@ -62,13 +69,13 @@
         android:hint="Vacunas en Falta" />
 
     <Button
-        android:text="Consulta por Madre/Padre"
+        android:text="Consulta por Madre_Padre"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:id="@+id/button2"
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:onClick="consultaporcodigo"
+        android:onClick="consulta"
         android:layout_weight="0.15" />
 
     <Button

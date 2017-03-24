@@ -5,8 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -113,6 +113,8 @@ public class pediApp extends AppCompatActivity implements GoogleApiClient.OnConn
                 et2=(EditText)findViewById(R.id.et2);
                 et3=(EditText)findViewById(R.id.et3);
                 et4=(EditText)findViewById(R.id.et4);
+                et1.setText(txtNombre.getText().toString());
+
 
 
 
@@ -125,7 +127,8 @@ public class pediApp extends AppCompatActivity implements GoogleApiClient.OnConn
     public void alta (View v) {
         AdminSqLiteOpenHelper admin = new AdminSqLiteOpenHelper(this,"adm", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
-        String cod = et1.getText().toString();
+
+         String cod = et1.getText().toString();
         String nn = et2.getText().toString();
         String va = et3.getText().toString();
         String vf= et4.getText().toString();
@@ -144,19 +147,21 @@ public class pediApp extends AppCompatActivity implements GoogleApiClient.OnConn
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void consultaporcodigo(View v) {
+    public void consulta (View v) {
         AdminSqLiteOpenHelper admin = new AdminSqLiteOpenHelper(this,
                 "adm", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
         String cod = et1.getText().toString();
-        Cursor fil = bd.rawQuery(
-                "select nombrehijo, vacunasapli, vacunasfal from padreshijos where codigo=" + cod, null);
+        //et2.setText(cod);
+        Cursor fil = bd.rawQuery("select nombrehijo,vacunasapli,vacunasfal from padreshijos where codigo='" + cod + "'", null);
         if (fil.moveToFirst()) {
             et2.setText(fil.getString(0));
             et3.setText(fil.getString(1));
             et4.setText(fil.getString(2));
 
-        } else
+        }
+
+        else
             Toast.makeText(this, "No existe un artículo con dicho código",
                     Toast.LENGTH_SHORT).show();
         bd.close();
@@ -193,6 +198,9 @@ public class pediApp extends AppCompatActivity implements GoogleApiClient.OnConn
             btnSiguiente.setVisibility (View.GONE);
         }
     }
+
+
+
 
     private void updateUI(boolean signedIn) {
         if (signedIn) {
@@ -246,5 +254,13 @@ public class pediApp extends AppCompatActivity implements GoogleApiClient.OnConn
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.hide();
         }
+    }
+
+    public void atras (View v) {
+
+// Esto es lo que hace mi botón al pulsar ir a atrás
+            setContentView(R.layout.activity_pedi_app);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
     }
 }
